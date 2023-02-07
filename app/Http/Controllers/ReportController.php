@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ReportController extends Controller
@@ -13,7 +15,8 @@ class ReportController extends Controller
         // check permission
 
         // Get report data từ db report
-        $rawData = [];
+        $rawData = User::all();
+        $data = DB::connection('reort')->select('exec')
 
         // Đẩy sang view để hiển thị
         return view('pages.report.raw', ['rawData' => $rawData]);

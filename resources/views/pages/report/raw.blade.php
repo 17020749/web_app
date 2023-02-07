@@ -9,7 +9,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("Hiển thị dữ liệu raw đã được tổng hợp từ các DB data về DB report") }}
+                    @foreach($rawData as $value)
+                        <li>{{$value->email}} </li>       
+                    @endforeach
                 </div>
             </div>
         </div>

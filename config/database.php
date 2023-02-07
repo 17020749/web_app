@@ -106,6 +106,20 @@ return [
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
+        'report' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_REPORT_URL'),
+            'host' => env('DB_HOST', 'localhost'),
+            'port' => env('DB_REPORT_PORT', '1433'),
+            'database' => env('DB_REPORT_DATABASE', 'forge'),
+            'username' => env('DB_REPORT_USERNAME', 'forge'),
+            'password' => env('DB_REPORT_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
+            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
+        ],
 
     ],
 

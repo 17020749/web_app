@@ -26,8 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/import', [ImportController::class, 'index'])->name('import.view');
-    Route::post('/import', [ImportController::class, 'importData'])->name('import.post');
-
+    Route::post('/import', [ImportController::class, 'importTest'])->name('import.post');
     Route::get('/report/data', [ReportController::class, 'rawData'])->name('report.raw');
     Route::get('/report/alert', [ReportController::class, 'viewAlert'])->name('report.alert');
 });

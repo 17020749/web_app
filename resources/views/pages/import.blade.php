@@ -9,7 +9,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("Nhập dữ liệu từ file csv, excel vào các db data") }}
+                    <form action="{{ route('import.post')}}" method="post">
+                        @csrf
+                        Name: <input type="text" name="name"><br>
+                        E-mail: <input type="text" name="email"><br>
+                        <input type="submit">
+                    </form>
                 </div>
             </div>
         </div>

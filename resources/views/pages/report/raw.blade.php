@@ -9,9 +9,23 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    @foreach($rawData as $value)
-                        <li>{{$value->email}} </li>       
-                    @endforeach
+                  
+                    <table class="table-auto table-border">
+                        <thead>
+                            <tr>
+                            <th>name</th>
+                            <th>email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($rawData as $value)
+                            <tr>
+                                <td>{{$value->name}}</td>
+                                <td>{{$value->email}}</td>
+                            </tr>       
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

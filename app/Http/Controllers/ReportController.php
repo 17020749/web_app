@@ -16,7 +16,6 @@ class ReportController extends Controller
 
         // Get report data từ db report
         $rawData = User::all();
-        $data = DB::connection('reort')->select('exec')
 
         // Đẩy sang view để hiển thị
         return view('pages.report.raw', ['rawData' => $rawData]);

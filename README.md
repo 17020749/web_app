@@ -61,4 +61,25 @@
     npm install
    
     npm run dev 
-```
+    ```
+
+### Cài đặt php driver trên window
+1. Download drive: 
+    ```url
+   https://windows.php.net/downloads/pecl/releases/oci8/3.2.1/php_oci8-3.2.1-8.1-ts-vs16-x64.zip
+   ```
+   - Giải nén, copy file .dll vào thư mục /ext trong folder cài php
+   - Sửa file php.ini, bật drive phù hợp với version DB
+   
+   ```ini
+    ;extension=oci8_11g
+    ;extension=oci8_12c  ; Use with Oracle Database 12c Instant Client
+    extension=oci8_19  ; Use with Oracle Database 19 Instant Client
+    ```
+2. Cài đặt Oracle Instant Client for Microsoft Windows
+
+    ```url
+   https://download.oracle.com/otn_software/nt/instantclient/1918000/instantclient-basic-windows.x64-19.18.0.0.0dbru.zip
+    ```
+   - Giải nén thành thư mục: `C:\instantclient_19_18`
+   - Thêm `C:\instantclient_19_18` vào biến môi trường PATH của window để chạy oracle driver.

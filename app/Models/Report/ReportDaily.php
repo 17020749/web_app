@@ -11,10 +11,11 @@ class ReportDaily extends Model
     protected $connection = 'report';
     protected $table = 'HANG_NGAY';
     protected $primaryKey = 'ID';
+    public $incrementing = true;
+    protected $keyType = 'integer';
     public $timestamps = false;
 
     protected $fillable = [
-        'ID',
         'METER_ID',
         'MA_DDO',
         'ACTIVE_KW_INDICATE_TOTAL',
@@ -23,8 +24,9 @@ class ReportDaily extends Model
         'DIA_CHI'
     ];
 
+    protected $guarded = ['ID'];
+
     protected $casts = [
-        'ID' => 'integer',
         'METER_ID' => 'integer',
         'ACTIVE_KW_INDICATE_TOTAL' => 'integer',
         'SAVEDB_TIME' => 'datetime'

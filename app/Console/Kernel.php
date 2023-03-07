@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
 
         // Chạy job tổng hợp dữ liệu từ các db data về db report
         $schedule->job(new SynthesizeReportDataJob())
-            ->dailyAt('01:30')
+            ->dailyAt('0:30')
             ->runInBackground();
     }
 

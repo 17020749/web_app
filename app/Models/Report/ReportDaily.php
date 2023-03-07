@@ -9,7 +9,7 @@ class ReportDaily extends Model
 {
     use HasFactory;
     protected $connection = 'report';
-    protected $table = 'HANG_NGAY';
+    protected $table = 'HANGNGAY';
     protected $primaryKey = 'ID';
     public $incrementing = true;
     protected $keyType = 'integer';
@@ -18,17 +18,15 @@ class ReportDaily extends Model
     protected $fillable = [
         'METER_ID',
         'MA_DDO',
-        'ACTIVE_KW_INDICATE_TOTAL',
-        'SAVEDB_TIME',
-        'TEN_KHANG',
-        'DIA_CHI'
+        'CHI_SO',
+        'SAVEDB_TIME'        
     ];
 
     protected $guarded = ['ID'];
 
     protected $casts = [
         'METER_ID' => 'integer',
-        'ACTIVE_KW_INDICATE_TOTAL' => 'integer',
+        'CHI_SO' => 'integer',
         'SAVEDB_TIME' => 'datetime'
     ];
 }

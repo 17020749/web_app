@@ -7,31 +7,30 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-
-                    <table class="table-auto table-border">
-                        <thead>
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            
                             <tr>
-                                <th>Save time</th>
-                                <th>METER_ID</th>
-                                <th>MA_DDO</th>
-                                <th>ACTIVE_KW_INDICATE_TOTAL</th>
+                                <th class="px-6 py-4">Save time</th>
+                                <th class="px-6 py-4">METER_ID</th>
+                                <th class="px-6 py-4">MA_DDO</th>
+                                <th class="px-6 py-4">Chỉ số</th>                               
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($rawData as $value)
-                            <tr>
-                                <td>{{ $value->SAVEDB_TIME }}</td>
-                                <td>{{ $value->METER_ID }}</td>
-                                <td>{{ $value->MA_DDO }}</td>
-                                <td>{{ $value->ACTIVE_KW_INDICATE_TOTAL }}</td>
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4">{{ $value->SAVEDB_TIME }}</td>
+                                <td class="px-6 py-4">{{ $value->METER_ID }}</td>
+                                <td class="px-6 py-4">{{ $value->MA_DDO }}</td>
+                                <td class="px-6 py-4">{{ $value->CHI_SO }}</td>                                
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-                {{ $rawData->onEachSide(4)->links() }}
+                <div class="p-6">{{ $rawData->onEachSide(4)->links() }}</div>
             </div>
         </div>
     </div>

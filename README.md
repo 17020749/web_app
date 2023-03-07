@@ -1,5 +1,3 @@
-# Ứng dụng sáng kiến a Toàn
-
 ### Yêu cầu môi trường
 - PHP >= 8.0
 - BCMath PHP Extension
@@ -24,18 +22,13 @@
 
 ### Hướng dẫn chạy
 
-1. Clone code về
-
-    ```shell
-      git clone https://github.com/strongnguyen29/atoan-app.git
-    ```
-2. Install các thư viện php
+1. Install các thư viện php
 
     ```shell
     composer install
     ```
 
-3. Cấu hình biến môi trường .env
+2. Cấu hình biến môi trường .env
     
     ```shell
     cp .env.example .env
@@ -46,7 +39,7 @@
     
     Điền các thông số kết nối DB mysql, sql server, redis...
 
-4. Chạy migrate DB user
+3. Chạy migrate DB user
 
     ```shell
     # Tạo các bảng
@@ -55,7 +48,7 @@
     # Tạo dữ liệu user root
     php artisan db:seed
     ```
-5. Chạy cài đặt thư viện javascript cho giao diệ
+4. Chạy cài đặt thư viện javascript cho giao diệ
     
     ```shell
     npm install

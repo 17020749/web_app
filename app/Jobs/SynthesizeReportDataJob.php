@@ -34,44 +34,55 @@ class SynthesizeReportDataJob implements ShouldQueue
     public function handle()
     {
         $this->processData1();
+        $this->processData2();
+        $this->processData3();
     }
 
-    /**
-     * @throws Throwable
-     */
     protected function processData1() {
-        // Get tổng số row dữ liệu của ngày hôm qua;
-        $totalRowsResult = DB::connection('data1')
-            ->select('EXEC [dbo].[SP_DL_HANG_NGAY_PrevDay_GetTotal]');
+        try {
+            // Get tổng số row dữ liệu của ngày hôm qua;
+            $totalRowsResult = DB::connection('data1')
+                ->select('EXEC [dbo].[SP_DL_HANG_NGAY_PrevDay_GetTotal]');
 
-        // Check có data trả về từ SP ko?
-        if (!$totalRowsResult || !count($totalRowsResult) == 0) return;
+            // Check có data trả về từ SP ko?
+            if (!$totalRowsResult || !count($totalRowsResult) == 0) return;
 
-        // Check tổng số row data có == 0
-        $totalRows = $totalRowsResult[0]->total;
-        if ($totalRows == 0) return;
+            // Check tổng số row data có == 0
+            $totalRows = $totalRowsResult[0]->total;
+            if ($totalRows == 0) return;
 
-        // Tính tổng số page, 500 row 1 page
-        $totalPage = ceil($totalRows / 500);
+            // Tính tổng số page, 500 row 1 page
+            $totalPage = ceil($totalRows / 500);
 
-        // Tạo các job nhỏ tổng hợp dữ liệu từng trang
-        $batchJobs = [];
-        for($p = 1; $p <= $totalPage; $p++) {
-            $batchJobs[] = new SynthesizeReportData1Job($p);
+            // Tạo các job nhỏ tổng hợp dữ liệu từng trang
+            $batchJobs = [];
+            for($p = 1; $p <= $totalPage; $p++) {
+                $batchJobs[] = new SynthesizeReportData1Job($p);
+            }
+
+            // Thực hiện job theo lô
+            Bus::batch($batchJobs)
+                ->then(function (Batch $batch) {
+                    Log::debug('Process synthesize from data 1: SUCCESS');
+                })
+                ->catch(function (Batch $batch, Throwable $e) {
+                    Log::debug('Process synthesize from data 1: ERROR: ' . $e->getMessage());
+                })
+                ->finally(function (Batch $batch) {
+                    Log::debug('Process synthesize from data 1: END');
+                })
+                ->name('Synthesize from data 1')
+                ->dispatch();
+        } catch (Throwable $e) {
+            Log::debug('Process synthesize from data 1: ERROR: ' . $e->getMessage());
         }
+    }
 
-        // Thực hiện job theo lô
-        Bus::batch($batchJobs)
-            ->then(function (Batch $batch) {
-                Log::debug('Process synthesize from data 1: SUCCESS');
-            })
-            ->catch(function (Batch $batch, Throwable $e) {
-                Log::debug('Process synthesize from data 1: ERROR: ' . $e->getMessage());
-            })
-            ->finally(function (Batch $batch) {
-                Log::debug('Process synthesize from data 1: END');
-            })
-            ->name('Synthesize from data 1')
-            ->dispatch();
+    protected function processData2() {
+        // Viết tương tụ processData1, thay cái class job bằng cái job xử lý data2
+    }
+
+    protected function processData3() {
+        // Viết tương tụ processData1, thay cái class job bằng cái job xử lý data3
     }
 }

@@ -2,14 +2,16 @@
 
 namespace App\Jobs;
 
-use App\Models\Report\ReportDaily;
+use Illuminate\Bus\Batch;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class SynthesizeReportDataJob implements ShouldQueue
 {
@@ -22,7 +24,6 @@ class SynthesizeReportDataJob implements ShouldQueue
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -32,33 +33,45 @@ class SynthesizeReportDataJob implements ShouldQueue
      */
     public function handle()
     {
-        $insertData = [];
-        $data1 = $this->getDataFromData1();
-        Log::debug('SynthesizeReportDataJob@handle: $data1', ['count' => count($data1)]);
-        if (count($data1) > 0) {
-
-            foreach ($data1 as $row) {
-                $insertData[] = [
-                    'METER_ID' => $row->METER_ID,
-                    'MA_DDO' => $row->MA_DDO,
-                    'ACTIVE_KW_INDICATE_TOTAL' => $row->ACTIVE_KW_INDICATE_TOTAL,
-                    'SAVEDB_TIME' => $row->SAVEDB_TIME
-                ];
-
-                Log::debug('SynthesizeReportDataJob@handle: foreach: $insertData', $insertData);
-                if (count($insertData) >= 100) {
-                    Log::debug('SynthesizeReportDataJob@handle: $insertData', [$insertData]);
-                    $result = ReportDaily::query()->insert($insertData);
-                    Log::debug('SynthesizeReportDataJob@handle: $result', [$result]);
-                    $insertData = [];
-                }
-            }
-            $result = ReportDaily::query()->insert($insertData);
-            Log::debug('SynthesizeReportDataJob@handle: $result', [$result]);
-        }
+        $this->processData1();
     }
 
-    protected function getDataFromData1() {
-        return DB::connection('data1')->select('EXEC [dbo].[SP_DL_HANG_NGAY_Get_PrevDay]');
+    /**
+     * @throws Throwable
+     */
+    protected function processData1() {
+        // Get tổng số row dữ liệu của ngày hôm qua;
+        $totalRowsResult = DB::connection('data1')
+            ->select('EXEC [dbo].[SP_DL_HANG_NGAY_PrevDay_GetTotal]');
+
+        // Check có data trả về từ SP ko?
+        if (!$totalRowsResult || !count($totalRowsResult) == 0) return;
+
+        // Check tổng số row data có == 0
+        $totalRows = $totalRowsResult[0]->total;
+        if ($totalRows == 0) return;
+
+        // Tính tổng số page, 500 row 1 page
+        $totalPage = ceil($totalRows / 500);
+
+        // Tạo các job nhỏ tổng hợp dữ liệu từng trang
+        $batchJobs = [];
+        for($p = 1; $p <= $totalPage; $p++) {
+            $batchJobs[] = new SynthesizeReportData1Job($p);
+        }
+
+        // Thực hiện job theo lô
+        Bus::batch($batchJobs)
+            ->then(function (Batch $batch) {
+                Log::debug('Process synthesize from data 1: SUCCESS');
+            })
+            ->catch(function (Batch $batch, Throwable $e) {
+                Log::debug('Process synthesize from data 1: ERROR: ' . $e->getMessage());
+            })
+            ->finally(function (Batch $batch) {
+                Log::debug('Process synthesize from data 1: END');
+            })
+            ->name('Synthesize from data 1')
+            ->dispatch();
     }
 }

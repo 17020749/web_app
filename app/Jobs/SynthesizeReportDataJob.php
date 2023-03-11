@@ -42,7 +42,7 @@ class SynthesizeReportDataJob implements ShouldQueue
         try {
             // Get tổng số row dữ liệu của ngày hôm qua;
             $totalRowsResult = DB::connection('data1')
-                ->select('EXEC [dbo].[SP_DL_HANG_NGAY_PrevDay_GetTotal]');
+                ->select('EXEC [dbo].[SP_DL_HANG_NGAY_countRow]');
 
             // Check có data trả về từ SP ko?
             if (!$totalRowsResult || !count($totalRowsResult) == 0) return;
@@ -51,8 +51,8 @@ class SynthesizeReportDataJob implements ShouldQueue
             $totalRows = $totalRowsResult[0]->total;
             if ($totalRows == 0) return;
 
-            // Tính tổng số page, 500 row 1 page
-            $totalPage = ceil($totalRows / 500);
+            // Tính tổng số page, 30000 row 1 page
+            $totalPage = ceil($totalRows / 30000);
 
             // Tạo các job nhỏ tổng hợp dữ liệu từng trang
             $batchJobs = [];

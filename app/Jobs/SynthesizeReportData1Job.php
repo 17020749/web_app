@@ -39,7 +39,8 @@ class SynthesizeReportData1Job implements ShouldQueue
      */
     public function handle()
     {
-        // Lấy dữ liệu của paage trong DB data1
+        Log::debug('SynthesizeReportData1Job@handle');
+        // Lấy dữ liệu của page trong DB data1
         $data = $this->getData();
         Log::debug('SynthesizeReportData1Job@handle: totalData = ' . count($data));
 
@@ -52,12 +53,12 @@ class SynthesizeReportData1Job implements ShouldQueue
             $insertData[] = [
                 'METER_ID' => $row->METER_ID,
                 'MA_DDO' => $row->MA_DDO,
-                'ACTIVE_KW_INDICATE_TOTAL' => $row->ACTIVE_KW_INDICATE_TOTAL,
+                'CHI_SO' => $row->CHI_SO,
                 'SAVEDB_TIME' => $row->SAVEDB_TIME
             ];
         }
 
-        // Thực hiện insert data vào bản HANG_NGAY trong DB Report
+        // Thực hiện insert data vào bảng HANGNGAY trong DB Report
         $result = ReportDaily::query()->insert($insertData);
         Log::debug('SynthesizeReportData1Job@handle: $result', [$result]);
     }

@@ -15,7 +15,7 @@
 
 - Nginx / Apache
 - DB admin: mysql 5.7+ / MariaDB 10.3+
-- DB data 1,2, report: SQL Server 2017+
+- DB data 1,2, report: SQL Server 2016
 - DB data 3: Oracle
 - DB cache: redis
 - Queue job: redis

@@ -11,6 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Jobs\SynthesizeReportDataJob;
 
 class SynthesizeReportData1Job implements ShouldQueue
 {
@@ -42,13 +43,14 @@ class SynthesizeReportData1Job implements ShouldQueue
         Log::debug('SynthesizeReportData1Job@handle');
         // Lấy dữ liệu của page trong DB data1
         $data = $this->getData();
-        Log::debug('SynthesizeReportData1Job@handle: totalData = ' . count($data), $data);
+        Log::debug('SynthesizeReportData1Job@handle: totalData = ' . count($data));
 
         // Check data is empty
         if (count($data) === 0) return;
 
         // Tạo dữ liệu insert vào DB report
         $insertData = [];
+        $insertResults = [];
         foreach ($data as $row) {
             $insertData[] = [
                 'METER_ID' => $row->METER_ID,
@@ -56,16 +58,21 @@ class SynthesizeReportData1Job implements ShouldQueue
                 'CHI_SO' => $row->CHI_SO,
                 'SAVEDB_TIME' => $row->SAVEDB_TIME
             ];
+
+            if(count($insertData) >= 500) {
+                $insertResults[] = ReportDaily::query()->insert($insertData);
+                $insertData = [];
+            }
         }
 
         // Thực hiện insert data vào bảng HANGNGAY trong DB Report
-        $result = ReportDaily::query()->insert($insertData);
-        Log::debug('SynthesizeReportData1Job@handle: $result', [$result]);
+        $insertResults[] = ReportDaily::query()->insert($insertData);
+        Log::debug('SynthesizeReportData1Job@handle: $insertResults[]', $insertResults);
     }
 
     protected function getData(): array
     {
         return DB::connection('data1')
-            ->select('EXEC [dbo].[SP_DL_HANG_NGAY_Get_PrevDay] ?', [$this->page]);
+            ->select('EXEC [dbo].[SP_DL_HANG_NGAY_Get_PrevDay] ?, ?', [$this->page, SynthesizeReportDataJob::ROW_PER_PAGE]);
     }
 }

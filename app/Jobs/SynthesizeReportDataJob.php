@@ -17,6 +17,8 @@ class SynthesizeReportDataJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    const ROW_PER_PAGE = 20000;
+
     /**
      * Create a new job instance.
      *
@@ -59,8 +61,8 @@ class SynthesizeReportDataJob implements ShouldQueue
                 return;
             }
 
-            // Tính tổng số page, 30000 row 1 page
-            $totalPage = ceil($totalRows / 30000);
+            // Tính tổng số page, 10000 row 1 page
+            $totalPage = ceil($totalRows / SynthesizeReportDataJob::ROW_PER_PAGE);
 
             Log::debug('SynthesizeReportDataJob@processData1: $totalPage = ' . $totalPage);
             // Tạo các job nhỏ tổng hợp dữ liệu từng trang

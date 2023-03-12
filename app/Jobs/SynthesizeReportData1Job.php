@@ -42,7 +42,7 @@ class SynthesizeReportData1Job implements ShouldQueue
         Log::debug('SynthesizeReportData1Job@handle');
         // Lấy dữ liệu của page trong DB data1
         $data = $this->getData();
-        Log::debug('SynthesizeReportData1Job@handle: totalData = ' . count($data));
+        Log::debug('SynthesizeReportData1Job@handle: totalData = ' . count($data), $data);
 
         // Check data is empty
         if (count($data) === 0) return;
@@ -66,6 +66,6 @@ class SynthesizeReportData1Job implements ShouldQueue
     protected function getData(): array
     {
         return DB::connection('data1')
-            ->select('EXEC [dbo].[SP_DL_HANG_NGAY_Get_PrevDay](?)', [$this->page]);
+            ->select('EXEC [dbo].[SP_DL_HANG_NGAY_Get_PrevDay] ?', [$this->page]);
     }
 }

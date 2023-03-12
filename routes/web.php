@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/import', [ImportController::class, 'importTest'])->name('import.post');
     Route::get('/report/data', [ReportController::class, 'rawData'])->name('report.raw');
     Route::get('/report/alert', [ReportController::class, 'viewAlert'])->name('report.alert');
+    Route::get('/report/run-job', [ReportController::class, 'runJobSynthesize'])->name('report.runJob');
 });
 
 require __DIR__.'/auth.php';

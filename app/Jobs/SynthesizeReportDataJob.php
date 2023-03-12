@@ -44,16 +44,25 @@ class SynthesizeReportDataJob implements ShouldQueue
             $totalRowsResult = DB::connection('data1')
                 ->select('EXEC [dbo].[SP_DL_HANG_NGAY_countRow]');
 
+            Log::debug('SynthesizeReportDataJob@processData1: $totalRowsResult', $totalRowsResult);
+
             // Check có data trả về từ SP ko?
-            if (!$totalRowsResult || !count($totalRowsResult) == 0) return;
+            if (!$totalRowsResult || count($totalRowsResult) == 0) {
+                Log::error('SynthesizeReportDataJob@processData1: ERROR: $totalRowsResult is empty');
+                return;
+            }
 
             // Check tổng số row data có == 0
             $totalRows = $totalRowsResult[0]->total;
-            if ($totalRows == 0) return;
+            if ($totalRows == 0) {
+                Log::error('SynthesizeReportDataJob@processData1: ERROR: $totalRows = 0');
+                return;
+            }
 
             // Tính tổng số page, 30000 row 1 page
             $totalPage = ceil($totalRows / 30000);
 
+            Log::debug('SynthesizeReportDataJob@processData1: $totalPage = ' . $totalPage);
             // Tạo các job nhỏ tổng hợp dữ liệu từng trang
             $batchJobs = [];
             for($p = 1; $p <= $totalPage; $p++) {

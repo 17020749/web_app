@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SynthesizeReportDataJob;
 use App\Models\Report\ReportDaily;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -33,5 +34,10 @@ class ReportController extends Controller
 
         // Đẩy sang view để hiển thị
         return view('pages.report.alert', ['alertData' => $alertData]);
+    }
+
+    public function runJobSynthesize() {
+        SynthesizeReportDataJob::dispatch();
+        return 'ok';
     }
 }

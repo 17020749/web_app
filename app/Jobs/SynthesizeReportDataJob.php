@@ -61,7 +61,7 @@ class SynthesizeReportDataJob implements ShouldQueue
                 return;
             }
 
-            // Tính tổng số page, 10000 row 1 page
+            // Tính tổng số page, 20000 row 1 page
             $totalPage = ceil($totalRows / SynthesizeReportDataJob::ROW_PER_PAGE);
 
             Log::debug('SynthesizeReportDataJob@processData1: $totalPage = ' . $totalPage);
@@ -90,7 +90,52 @@ class SynthesizeReportDataJob implements ShouldQueue
     }
 
     protected function processData2() {
-        // Viết tương tụ processData1, thay cái class job bằng cái job xử lý data2
+        try {
+            // Get tổng số row dữ liệu của ngày hôm qua;
+            $totalRowsResult = DB::connection('data2')
+                ->select('EXEC [dbo].[SP_DL_HANG_NGAY_countRow]');
+
+            Log::debug('SynthesizeReportDataJob@processData2: $totalRowsResult', $totalRowsResult);
+
+            // Check có data trả về từ SP ko?
+            if (!$totalRowsResult || count($totalRowsResult) == 0) {
+                Log::error('SynthesizeReportDataJob@processData2: ERROR: $totalRowsResult is empty');
+                return;
+            }
+
+            // Check tổng số row data có == 0
+            $totalRows = $totalRowsResult[0]->total;
+            if ($totalRows == 0) {
+                Log::error('SynthesizeReportDataJob@processData2: ERROR: $totalRows = 0');
+                return;
+            }
+
+            // Tính tổng số page, 20000 row 1 page
+            $totalPage = ceil($totalRows / SynthesizeReportDataJob::ROW_PER_PAGE);
+
+            Log::debug('SynthesizeReportDataJob@processData2: $totalPage = ' . $totalPage);
+            // Tạo các job nhỏ tổng hợp dữ liệu từng trang
+            $batchJobs = [];
+            for($p = 1; $p <= $totalPage; $p++) {
+                $batchJobs[] = new SynthesizeReportData2Job($p);
+            }
+
+            // Thực hiện job theo lô
+            Bus::batch($batchJobs)
+                ->then(function (Batch $batch) {
+                    Log::debug('Process synthesize from data 2: SUCCESS');
+                })
+                ->catch(function (Batch $batch, Throwable $e) {
+                    Log::debug('Process synthesize from data 2: ERROR: ' . $e->getMessage());
+                })
+                ->finally(function (Batch $batch) {
+                    Log::debug('Process synthesize from data 2: END');
+                })
+                ->name('Synthesize from data 2')
+                ->dispatch();
+        } catch (Throwable $e) {
+            Log::debug('Process synthesize from data 2: ERROR: ' . $e->getMessage());
+        }
     }
 
     protected function processData3() {

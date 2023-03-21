@@ -13,16 +13,15 @@
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>           
                                 <th class="px-6 py-4">MA_DDO</th>                       
-                                <th class="px-6 py-4">METER_ID</th>                             
-                                                             
+                                <th class="px-6 py-4">METER_ID</th>                       
+                                                 
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($controlledAlert as $value)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">  
                                 <td class="px-6 py-4">{{ $value->MA_DDO }}</td>                                
-                                <td class="px-6 py-4">{{ $value->METER_ID }}</td>
-                                                                                    
+                                <td class="px-6 py-4">{{ $value->METER_ID }}</td>                                                                                    
                             </tr>
                         @endforeach
                         </tbody>

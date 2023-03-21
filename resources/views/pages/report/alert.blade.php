@@ -24,7 +24,7 @@
                                 <td class="px-6 py-4">{{ $value->MA_DDO }}</td>                                
                                 <td class="px-6 py-4">{{ $value->METER_ID }}</td>
                                 <td>
-                                    <a href="{{ route('report.edit', ['METER_ID' => $value->METER_ID]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Kiểm soát</a>
+                                    <a href="{{ route('alert.edit', ['METER_ID' => $value->METER_ID]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Kiểm soát</a>
                                 </td>                                                         
                             </tr>
                         @endforeach

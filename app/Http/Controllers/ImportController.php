@@ -19,7 +19,7 @@ class ImportController extends Controller
     }
 
     public function importData(Request $request): RedirectResponse {
-        // Check quyen cua user có đc phép inport?
+        // Check quyen cua user có đc phép import?
         if (!$this->checkIsAdmin($request->user)) {
             throw new HttpException(403);
         }

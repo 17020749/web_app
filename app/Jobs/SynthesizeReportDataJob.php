@@ -139,6 +139,6 @@ class SynthesizeReportDataJob implements ShouldQueue
     }
 
     protected function processData3() {
-        // Viết tương tụ processData1, thay cái class job bằng cái job xử lý data3
+        
     }
 }

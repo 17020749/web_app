@@ -13,25 +13,22 @@
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>           
                                 <th class="px-6 py-4">MA_DDO</th>                       
-                                <th class="px-6 py-4">METER_ID</th>
-                                <th class="px-6 py-4"></th>
+                                <th class="px-6 py-4">METER_ID</th>                             
                                                              
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($alertData as $value)
+                        @foreach($controlledAlert as $value)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">  
                                 <td class="px-6 py-4">{{ $value->MA_DDO }}</td>                                
                                 <td class="px-6 py-4">{{ $value->METER_ID }}</td>
-                                <td>
-                                    <a href="{{ route('report.edit', ['METER_ID' => $value->METER_ID]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Kiểm soát</a>
-                                </td>                                                         
+                                                                                    
                             </tr>
                         @endforeach
                         </tbody>
                         </table>
                 </div>
-                <div class="p-6">{{ $alertData->onEachSide(2)->links() }}</div>
+                <div class="p-6">{{ $controlledAlert->onEachSide(2)->links() }}</div>
             </div>
         </div>
     </div>

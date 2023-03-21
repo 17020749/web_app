@@ -67,12 +67,12 @@ class SynthesizeReportData3Job implements ShouldQueue
 
         // Thực hiện insert data vào bảng HANGNGAY trong DB Report
         $insertResults[] = ReportDaily::query()->insert($insertData);
-        Log::debug('SynthesizeReportData2Job@handle: $insertResults[]', $insertResults);
+        Log::debug('SynthesizeReportData3Job@handle: $insertResults[]', $insertResults);
     }
 
     protected function getData(): array
     {
-        return DB::connection('data2')
+        return DB::connection('data3')
             ->select('EXEC [dbo].[SP_DL_HANG_NGAY_Get_PrevDay] ?, ?', [$this->page, SynthesizeReportDataJob::ROW_PER_PAGE]);
     }
 }

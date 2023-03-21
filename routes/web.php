@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/report/data', [ReportController::class, 'rawData'])->name('report.raw');
     Route::get('/report/alert', [ReportController::class, 'viewAlert'])->name('report.alert');
     Route::get('/report/run-job', [ReportController::class, 'runJobSynthesize'])->name('report.runJob');
+    Route::get('/report/alert/edit/{METER_ID}', [ReportController::class, 'edit'])->name('report.edit');
+    Route::get('/report/alert/controlled', [ReportController::class, 'controlledAlert'])->name('report.controlledAlert');
 });
 
 require __DIR__.'/auth.php';

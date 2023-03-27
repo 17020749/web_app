@@ -24,7 +24,7 @@
                     <x-nav-link :href="route('report.alert')" :active="request()->routeIs('report.alert')">
                         {{ __('Cảnh báo') }}
                     </x-nav-link>                
-                    <x-nav-link :href="route('report.alert')" :active="request()->routeIs('report.alert')">
+                    <x-nav-link :href="route('report.edit')" :active="request()->routeIs('report.edit')">
                         {{ __('Đã kiểm soát') }}
                     </x-nav-link>
                 </div>

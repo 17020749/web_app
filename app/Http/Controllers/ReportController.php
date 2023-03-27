@@ -39,7 +39,19 @@ class ReportController extends Controller
         // Đẩy sang view để hiển thị
         return view('pages.report.alert', ['alertData' => $alertData]);
     }
-  
+    public function viewEdit(Request $request): View
+    {
+        // check permission
+
+        // Get report data từ db report
+        $editData = AlertDaily::query()
+            ->where('STT', 1)
+            ->orderBy('MA_DDO')
+            ->paginate(50);
+
+        // Đẩy sang view để hiển thị
+        return view('pages.report.edit', ['editData' => $editData]);
+    }
     public function editConfirm($METER_NO)
     {
         $alert = AlertDaily::findOrFail($METER_NO); // Lấy row tương ứng của bảng ALERT

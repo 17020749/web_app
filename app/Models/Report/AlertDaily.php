@@ -16,13 +16,17 @@ class AlertDaily extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'METER_ID',
-        'MA_DDO'              
+        'METER_NO',
+        'MA_DDO',
+        'TEN_KHANG',
+        'DIA_CHI',
+        'DON_VI',
+        'ALERT_TIME'              
     ];
 
     protected $guarded = ['ID'];
 
     protected $casts = [
-        'METER_ID' => 'integer'        
+        'METER_NO' => 'integer'        
     ];
 }

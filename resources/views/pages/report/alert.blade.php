@@ -12,19 +12,25 @@
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>           
-                                <th class="px-6 py-4">MA_DDO</th>                       
-                                <th class="px-6 py-4">METER_ID</th>
-                                <th class="px-6 py-4"></th>
-                                                             
+                                <th class="px-6 py-4">METER_NO</th>
+                                <th class="px-6 py-4">MA_DDO</th>
+                                <th class="px-6 py-4">TEN_KHANG</th>
+                                <th class="px-6 py-4">DIA_CHI</th>
+                                <th class="px-6 py-4">DON_VI</th>                               
+                                <th class="px-6 py-4">ALERT_TIME</th>                                                              
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($alertData as $value)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">  
-                                <td class="px-6 py-4">{{ $value->MA_DDO }}</td>                                
-                                <td class="px-6 py-4">{{ $value->METER_ID }}</td>
+                                <td class="px-6 py-4">{{ $value->METER_NO }}</td>
+                                <td class="px-6 py-4">{{ $value->MA_DDO }}</td>
+                                <td class="px-6 py-4">{{ $value->TEN_KHANG }}</td>
+                                <td class="px-6 py-4">{{ $value->DIA_CHI }}</td>
+                                <td class="px-6 py-4">{{ $value->DON_VI }}</td>                          
+                                <td class="px-6 py-4">{{ $value->ALERT_TIME }}</td>
                                 <td>
-                                    <a href="{{ route('alert.edit', ['METER_ID' => $value->METER_ID]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Kiểm soát</a>
+                                    <a href="{{ route('report.edit', ['METER_NO' => $value->METER_NO]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">EDIT</a>
                                 </td>                                                         
                             </tr>
                         @endforeach

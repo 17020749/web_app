@@ -16,8 +16,11 @@ class ReportDaily extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'METER_ID',
+        'METER_NO',
         'MA_DDO',
+        'TEN_KHANG',
+        'DIA_CHI',
+        'DON_VI',
         'CHI_SO',
         'SAVEDB_TIME'        
     ];
@@ -25,7 +28,7 @@ class ReportDaily extends Model
     protected $guarded = ['ID'];
 
     protected $casts = [
-        'METER_ID' => 'integer',
+        'METER_NO' => 'integer',
         'CHI_SO' => 'integer',
         'SAVEDB_TIME' => 'datetime'
     ];

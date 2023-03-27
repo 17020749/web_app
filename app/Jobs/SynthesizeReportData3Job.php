@@ -53,13 +53,16 @@ class SynthesizeReportData3Job implements ShouldQueue
         $insertResults = [];
         foreach ($data as $row) {
             $insertData[] = [
-                'METER_ID' => $row->METER_ID,
+                'METER_NO' => $row->METER_NO,
                 'MA_DDO' => $row->MA_DDO,
+                'TEN_KHANG' => $row->TEN_KHANG,
+                'DIA_CHI' => $row->DIA_CHI,
+                'DON_VI' => $row->DON_VI,
                 'CHI_SO' => $row->CHI_SO,
                 'SAVEDB_TIME' => $row->SAVEDB_TIME
             ];
 
-            if(count($insertData) >= 500) {
+            if(count($insertData) >= 50) {
                 $insertResults[] = ReportDaily::query()->insert($insertData);
                 $insertData = [];
             }

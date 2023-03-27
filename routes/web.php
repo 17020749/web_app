@@ -24,18 +24,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    
     Route::get('/import', [ImportController::class, 'index'])->name('import.view');
     Route::post('/import', [ImportController::class, 'importTest'])->name('import.post');
+    
     Route::get('/report/data', [ReportController::class, 'rawData'])->name('report.raw');
     Route::get('/report/alert', [ReportController::class, 'viewAlert'])->name('report.alert');
     Route::get('/report/run-job', [ReportController::class, 'runJobSynthesize'])->name('report.runJob');
-<<<<<<< HEAD
-    Route::get('/report/alert/edit/{METER_ID}', [ReportController::class, 'edit'])->name('report.edit');
-    Route::get('/report/alert/controlled', [ReportController::class, 'controlledAlert'])->name('report.controlledAlert');
-=======
-    Route::get('/report/alert/edit/{METER_ID}', [ReportController::class, 'edit'])->name('alert.edit');
->>>>>>> 08439f2e12fbb1b8d97d3ad55819cc31ff5ea7e5
+    Route::get('/report/edit', [ReportController::class, 'viewEdit'])->name('report.edit');
+    Route::get('/report/control', [ReportController::class, 'controlled'])->name('report.controlledAlert');
 });
 
 require __DIR__.'/auth.php';

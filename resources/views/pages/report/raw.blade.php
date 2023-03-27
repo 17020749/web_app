@@ -14,25 +14,31 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th class="px-6 py-4">Save time</th>
-                                <th class="px-6 py-4">METER_ID</th>
+                                <th class="px-6 py-4">METER_NO</th>
                                 <th class="px-6 py-4">MA_DDO</th>
-                                <th class="px-6 py-4">Chỉ số</th>
+                                <th class="px-6 py-4">TEN_KHANG</th>
+                                <th class="px-6 py-4">DIA_CHI</th>
+                                <th class="px-6 py-4">DON_VI</th>
+                                <th class="px-6 py-4">CHI_SO</th>
+                                <th class="px-6 py-4">SAVEDB_TIME</th>                                
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($rawData as $value)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <td class="px-6 py-4">{{ $value->SAVEDB_TIME }}</td>
-                                <td class="px-6 py-4">{{ $value->METER_ID }}</td>
+                                <td class="px-6 py-4">{{ $value->METER_NO }}</td>
                                 <td class="px-6 py-4">{{ $value->MA_DDO }}</td>
+                                <td class="px-6 py-4">{{ $value->TEN_KHANG }}</td>
+                                <td class="px-6 py-4">{{ $value->DIA_CHI }}</td>
+                                <td class="px-6 py-4">{{ $value->DON_VI }}</td>
                                 <td class="px-6 py-4">{{ $value->CHI_SO }}</td>
+                                <td class="px-6 py-4">{{ $value->SAVEDB_TIME }}</td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-                <div class="p-6">{{ $rawData->onEachSide(4)->links() }}</div>
+                <div class="p-6">{{ $rawData->onEachSide(7)->links() }}</div>
             </div>
         </div>
     </div>

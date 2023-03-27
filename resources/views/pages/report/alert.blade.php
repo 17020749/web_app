@@ -17,13 +17,13 @@
                                 <th class="px-6 py-4">TEN_KHANG</th>
                                 <th class="px-6 py-4">DIA_CHI</th>
                                 <th class="px-6 py-4">DON_VI</th>                               
-                                <th class="px-6 py-4">ALERT_TIME</th>                                                              
+                                <th class="px-6 py-4">ALERT_TIME</th>     
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-gray-700">
                         @foreach($alertData as $value)
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">  
-                                <td class="px-6 py-4">{{ $value->METER_NO }}</td>
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-slate-200">  
+                               <td class="px-6 py-4">{{ $value->METER_NO }}</td>
                                 <td class="px-6 py-4">{{ $value->MA_DDO }}</td>
                                 <td class="px-6 py-4">{{ $value->TEN_KHANG }}</td>
                                 <td class="px-6 py-4">{{ $value->DIA_CHI }}</td>
@@ -31,7 +31,7 @@
                                 <td class="px-6 py-4">{{ $value->ALERT_TIME }}</td>
                                 <td>
                                     <a href="{{ route('report.edit', ['METER_NO' => $value->METER_NO]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">EDIT</a>
-                                </td>                                                         
+                                </td>                                                                                                
                             </tr>
                         @endforeach
                         </tbody>

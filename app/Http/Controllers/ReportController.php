@@ -29,12 +29,30 @@ class ReportController extends Controller
     public function viewAlert(Request $request): View
     {
         // check permission
+                if(isset($request->donvi)) {
+                     $request->session()->put('selected_donvi', $request->donvi);
+                    // LÀM MẪU
+                    // Anh viết câu query của anh vào đây
+            // $users = DB::table('users')->where('isAdmin', $request->isAdmin)->get();
 
-        // Get report data từ db report
-        $alertData = AlertDaily::query()
+                           
+
+                        // $alertData = [];
+                        // conver array
+                //        foreach ($users as $user) {
+                //     $alertData[] = (array) $user;
+                
+                // }
+                }
+                else {
+                    $request->session()->put('selected_donvi', '');
+                        $alertData = AlertDaily::query()
             ->where('STT', 0)
             ->orderBy('MA_DDO')
             ->paginate(50);
+                }
+        // Get report data từ db report
+    
 
         // Đẩy sang view để hiển thị
         return view('pages.report.alert', ['alertData' => $alertData]);

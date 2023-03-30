@@ -27,7 +27,13 @@
                                 <td class="px-6 py-4">{{ $value->MA_DDO }}</td>
                                 <td class="px-6 py-4">{{ $value->TEN_KHANG }}</td>
                                 <td class="px-6 py-4">{{ $value->DIA_CHI }}</td>
-                                <td class="px-6 py-4">{{ $value->DON_VI }}</td>                          
+                                <td class="px-6 py-4">
+                                    <select onchange="window.location.href=this.value;">
+                                        <option value="{{ route('report.alert', ['donvi' => '']) }}" @if(session('selected_donvi') == '') selected @endif>Tất cả đơn vị</option>
+                                        <option value="{{ route('report.alert', ['donvi' => 'PA01GT']) }}" @if(session('selected_donvi') == 'PA01GT') selected @endif>PA01GT</option>
+            
+                                    </select>
+                                </td>                          
                                 <td class="px-6 py-4">{{ $value->ALERT_TIME }}</td>
                                 <td>
                                     <a href="{{ route('report.edit', ['METER_NO' => $value->METER_NO]) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">EDIT</a>

@@ -14,12 +14,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(10)->create([
+            'isAdmin'=>false
+        ]);
 
-         \App\Models\User::factory()->create([
-             'name' => 'Admin',
-             'email' => 'admin@example.com',
-             'isAdmin' => true,
-         ]);
+        //  \App\Models\User::factory()->create([
+        //         'name' => 'admin',
+        //         'username' => 'pcnd',
+        //         'email' => 'admin1@xample.com',
+        //         'donvi' => 'all',
+        //         'isAdmin' => true,
+        //     ],
+      
+        // );    
     }
 }

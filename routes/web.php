@@ -3,8 +3,9 @@
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ReportSearchController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,10 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+// Route::get('/', function () {
+//     return view('dashboard');
+// })->name('dashboard');
+Route::get('/', [DashboardController::class, 'viewDashboard'])->name('dashboard');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -29,9 +30,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/import', [ImportController::class, 'importTest'])->name('import.post');
     
     Route::get('/report/data', [ReportController::class, 'rawData'])->name('report.raw');
+    Route::get('/report/data/search', [ReportSearchController::class, 'search'])->name('report.raw.search');
     Route::get('/report/alert', [ReportController::class, 'viewAlert'])->name('report.alert');
     Route::get('/report/run-job', [ReportController::class, 'runJobSynthesize'])->name('report.runJob');
-    Route::get('/report/edit', [ReportController::class, 'viewEdit'])->name('report.edit');   
+    Route::get('/report/edit', [ReportController::class, 'viewEdit'])->name('report.edit');      
+    Route::post('/report/update/{meter_no}', [ReportController::class, 'update'])->name('report.update');        
 });
 
 require __DIR__.'/auth.php';

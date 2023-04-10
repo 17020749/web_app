@@ -4,11 +4,13 @@
             {{ __('Cảnh báo') }}
         </h2>
     </x-slot>
-
+    
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                
                 <div class="p-6 text-gray-900">
+                <button type="button" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"><a href="{{route('export')}}"><i class="fa-solid fa-file-export"></i>Export</a></button>
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border-collapse">
                         <thead class="text-xs text-white uppercase bg-blue-600 dark:bg-white-500 dark:text-white-500">
                             <tr>           
@@ -31,12 +33,13 @@
                                     </select>                          
                                 </th>                               
                                 <th class="px-6 py-4 border border-slate-600">ALERT_TIME</th>     
-                                <th class="px-6 py-4 border border-slate-600">STT</th>                                 
+                                <th class="px-6 py-4 border border-slate-600">STT</th>  
+                                 <th class="px-6 py-4 border border-slate-600">Action</th>                                 
                             </tr>
                         </thead>
                         <tbody class="text-gray-700">
                         @foreach($alertData as $value)
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-slate-200">  
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-slate-200 h-auto">  
                                <td class="px-6 py-4 border border-slate-600">{{ $value->METER_NO }}</td>
                                 <td class="px-6 py-4 border border-slate-600">{{ $value->MA_DDO }}</td>
                                 <td class="px-6 py-4 border border-slate-600">{{ $value->TEN_KHANG }}</td>
@@ -51,7 +54,11 @@
                                         <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Phúc tra</button>
                                     </form>
                                 </td>
-                                                                                                
+                                    <th class="px-6 py-4 border border-slate-600">
+                                      
+                    <x-modal-alert class="zoom-in"></x-modal-alert>
+
+                                    </th>                                                                  
                             </tr>
                         @endforeach
                         </tbody>

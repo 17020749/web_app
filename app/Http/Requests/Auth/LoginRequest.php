@@ -27,11 +27,10 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => ['required', 'string', 'min:8'],
-            'password' => ['required', 'string'],
+            'validate_form_login' => new ValidateFormLogin(),
         ];
-    }
-
+    } 
+   
     /**
      * Attempt to authenticate the request's credentials.
      *
@@ -45,7 +44,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'username' => trans(__('Tên đăng nhập hoặc mật khẩu không chính xác')),
+                'errorLogin' => trans(__('Tên đăng nhập hoặc mật khẩu không chính xác')),
             ]);
         }
 

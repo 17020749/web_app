@@ -9,7 +9,7 @@
                     <img class="  block h-12 w-auto fill-current text-gray-800" src="/images/logoNabar.png" alt="PC NĐ">
                     </a>
                 </div>
-
+    
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
@@ -29,7 +29,7 @@
                     </x-nav-link>
                     @if(Auth::check())
                         @if(Auth::user()->isAdmin==1)
-                        <x-nav-link >
+                        <x-nav-link :href="route('admin')" :active="request()->routeIs('admin')">
                             {{ __('Quản lý') }}
                         </x-nav-link>
                         @endif

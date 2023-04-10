@@ -19,7 +19,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'username' =>fake()->unique()->name(),      
+            'username' =>str_replace(' ','',fake()->unique()->name()),      
             'email' => fake()->unique()->safeEmail(),
             'donvi' =>fake()->unique()->name(),
             'email_verified_at' => now(),

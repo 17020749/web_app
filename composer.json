@@ -11,6 +11,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/telescope": "^4.13",
         "laravel/tinker": "^2.7",
+        "maatwebsite/excel": "^3.1",
         "predis/predis": "^2.1",
         "yajra/laravel-oci8": "9"
     },
